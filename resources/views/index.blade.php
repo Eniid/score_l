@@ -24,9 +24,11 @@
         </tr>
         </thead>
         <tbody>
+            
+            @foreach($teams as $team)
         <tr>
-            <td>1</td>
-            <th scope="row">Liverpool</th>
+            <td>{{$team->id}}</td>
+            <th scope="row">{{$team->name}}</th>
             <td>4</td>
             <td>12</td>
             <td>4</td>
@@ -36,66 +38,8 @@
             <td>0</td>
             <td>10</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <th scope="row">Manchester City</th>
-            <td>4</td>
-            <td>10</td>
-            <td>3</td>
-            <td>0</td>
-            <td>1</td>
-            <td>12</td>
-            <td>4</td>
-            <td>8</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <th scope="row">Chelsea</th>
-            <td>4</td>
-            <td>8</td>
-            <td>2</td>
-            <td>0</td>
-            <td>2</td>
-            <td>9</td>
-            <td>5</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <th scope="row">Tottenham</th>
-            <td>4</td>
-            <td>7</td>
-            <td>2</td>
-            <td>1</td>
-            <td>1</td>
-            <td>7</td>
-            <td>7</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <th scope="row">Manchester United</th>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>1</td>
-            <td>2</td>
-            <td>6</td>
-            <td>-4</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <th scope="row">Arsenal</th>
-            <td>4</td>
-            <td>0</td>
-            <td>0</td>
-            <td>4</td>
-            <td>0</td>
-            <td>2</td>
-            <td>12</td>
-            <td>-10</td>
-        </tr>
+        @endforeach
+
         </tbody>
     </table>
 </section>
@@ -132,18 +76,19 @@
 </section>
 <section>
     <h2>Encodage d’un nouveau match</h2>
+
+
     <form action="manage.php" method="post">
+    @csrf
         <label for="match-date">Date du match</label>
         <input type="text" id="match-date" name="match-date">
         <br>
         <label for="home-team">Équipe à domicile</label>
         <select name="home-team" id="home-team">
-            <option value="arsenal">Arsenal</option>
-            <option value="chelsea">Chelsea</option>
-            <option value="liverpool">Liverpool</option>
-            <option value="manchester%20city">Manchester City</option>
-            <option value="manchester%20united">Manchester United</option>
-            <option value="tottenham">Tottenham</option>
+        @foreach($teams as $team)
+        <option value="{{$team->name}}">{{$team->name}}</option>
+        @endforeach
+            
         </select>
         <label for="home-team-unlisted">Équipe non listée&nbsp;?</label>
         <input type="text" name="home-team-unlisted" id="home-team-unlisted">
@@ -153,12 +98,9 @@
         <br>
         <label for="away-team">Équipe visiteuse</label>
         <select name="away-team" id="away-team">
-            <option value="arsenal">Arsenal</option>
-            <option value="chelsea">Chelsea</option>
-            <option value="liverpool">Liverpool</option>
-            <option value="manchester%20city">Manchester City</option>
-            <option value="manchester%20united">Manchester United</option>
-            <option value="tottenham">Tottenham</option>
+        @foreach($teams as $team)
+        <option value="{{$team->name}}">{{$team->name}}</option>
+        @endforeach
         </select>
         <label for="away-team-unlisted">Équipe non listée&nbsp;?</label>
         <input type="text" name="away-team-unlisted" id="away-team-unlisted">
