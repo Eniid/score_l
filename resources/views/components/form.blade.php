@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Premier League 2020</title>
-</head>
-<body>
-<h1>Premier League 2020</h1>
-
-<x-standings data="{{$teams}}" ></x-standings>
-
-<section>
-    <h2>Games played at april 2nd, 2020</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th><th>Home Team</th><th>Home Team Goals</th><th>Away Team Goals</th><th>Away Team</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-            @foreach($parts as $part)
-                {{$part}}
-                <td>January 7th, 2020</td>
-                <td>Liverpool</td>
-                <td>7</td>
-                <td>2</td>
-                <td>Manchester United</td>
-            @endforeach
-            </tr>
-            
-        </tbody>
-    </table>
-</section>
-<section>
-    <h2>Encodage d’un nouveau match</h2>
-
-
+<div>
+    <!-- Be present above all else. - Naval Ravikant -->
     <form action="/" method="post">
     @csrf
         <label for="match-date">Date du match</label>
@@ -69,6 +32,4 @@
         <br>
         <input type="submit" value="Ajouter ce match">
     </form>
-</section>
-</body>
-</html>
+</div>

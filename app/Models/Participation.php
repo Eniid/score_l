@@ -14,4 +14,6 @@ class Participation extends Model
         'goals',
         'is_home'
     ];
+
+ 
 }

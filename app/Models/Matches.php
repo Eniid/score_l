@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Matches extends Model
 {
     use HasFactory;
+    public $fillable = [
+        'date',
+        'slug', 
+    ];
 }
