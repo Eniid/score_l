@@ -11,6 +11,7 @@ class MatchesController extends Controller
 {
     public function store(){
 
+
         //Sauvgater les noms 
         $t1 = request('home-team');
         $t2 = request('away-team');
@@ -26,10 +27,10 @@ class MatchesController extends Controller
 
         $part = new Participation(); 
         $part -> match_id = $match->id; 
-        if(request('away-team-unlisted')){
+        if(request('home-team-unlisted')){
             $newAwayTeam = new Teams(); 
-            $newAwayTeam -> name = request('away-team-unlisted'); 
-            $newAwayTeam -> slug = substr(request('away-team-unlisted'), 0, 2);
+            $newAwayTeam -> name = request('home-team-unlisted'); 
+            $newAwayTeam -> slug = strtoupper(substr(request('home-team-unlisted'), 0, 3));
             $newAwayTeam -> save(); 
             $part -> team_id = $newAwayTeam->id; 
         } else {
@@ -48,6 +49,10 @@ class MatchesController extends Controller
         $part2 -> save(); 
 
 
-        return view('index');
+        $teams = Teams::all(); 
+        $parts = Participation::all();  
+
+        return view('index', compact('teams', 'parts'));
+
     }
 }

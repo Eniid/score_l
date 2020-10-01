@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Premier League 2020</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+    
 <h1>Premier League 2020</h1>
 
-<x-standings data="{{$teams}}" ></x-standings>
+<x-standings :data='$teams'></x-standings>
 
 <section>
     <h2>Games played at april 2nd, 2020</h2>
@@ -19,22 +16,25 @@
         </thead>
         <tbody>
 
-            <tr>
+            
             @foreach($parts as $part)
-                {{$part}}
+            <tr>
                 <td>January 7th, 2020</td>
                 <td>Liverpool</td>
                 <td>7</td>
                 <td>2</td>
                 <td>Manchester United</td>
-            @endforeach
             </tr>
+            @endforeach
+            
             
         </tbody>
     </table>
 </section>
+@auth
 <section>
     <h2>Encodage d’un nouveau match</h2>
+
 
 
     <form action="/" method="post">
@@ -70,5 +70,6 @@
         <input type="submit" value="Ajouter ce match">
     </form>
 </section>
-</body>
-</html>
+@endauth
+
+@endsection
