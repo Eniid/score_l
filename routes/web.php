@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\MatchController;
+use App\Http\Controllers\TeamController;
+use App\Models\Match;
+use App\Models\Team;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
-Route::post('/', [MatchesController::class, 'store']);
+Route::get('/team/create', [TeamController ::class, 'read'])->middleware('auth', 'can:create,App\Models\Team');
+Route::get('/team/{team:slug}/edit', [TeamController ::class, 'edit'])->middleware('auth', 'can:create,App\Models\Team');
+Route::get('/match/create', [MatchController ::class, 'read'])->middleware('auth', 'can:create,App\Models\Match');
+
+Route::post('/match/create', [MatchController::class, 'store'])->middleware('auth');
+Route::post('/team/create', [TeamController::class, 'store'])->middleware('auth');
+Route::patch('/team/{team:slug}', [TeamController::class, 'update'])->middleware('auth');
 
 
+Route::get('/s', function() {
+    return Match::with('teams')->get();
+});

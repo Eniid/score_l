@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Match;
+use App\Models\Team;
+use App\Policies\MatchPolicy;
+use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,11 +18,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        
+        Team::class => TeamPolicy::class,
+        Match::class => MatchPolicy::class, 
     ];
 
-    /**
+    
+    /** 
      * Register any authentication / authorization services.
-     *
+     *π
      * @return void
      */
     public function boot()
@@ -26,5 +34,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('add-team', function($user){
+            return $user->isAdmin;
+        });
+
+        Gate::define('add-match', function($user){
+            return $user->isAdmin|| $user->isModo;
+        });
+
     }
 }

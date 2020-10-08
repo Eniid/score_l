@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matches;
+use App\Models\Match;
 use App\Models\Participation;
-use App\Models\Teams;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+
     public function index(){
-        $teams = Teams::all(); 
+        $teams = Team::with('matches', 'stat')->get(); 
+        $sortKey = request()->query('s');
+        $teams = $teams->sortBy($sortKey); 
+
+
         $parts = Participation::all();  
+        $matchs = Match::with('teams')->get(); 
 
-        return view('index', compact('teams', 'parts'));
+        return view('index', compact('teams', 'parts', 'matchs'));
     }
-
 }
